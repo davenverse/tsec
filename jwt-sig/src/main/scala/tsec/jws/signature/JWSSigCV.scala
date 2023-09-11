@@ -81,7 +81,7 @@ sealed abstract class JWSSigCV[F[_], A](
         providedBytes <- base64UrlSafeF(split(2))
         sigExtract    <- jwsSigAlgo.concatToJCA[F](providedBytes)
         headerBytes   <- base64UrlSafeF(split(0))
-        header        <- M.fromEither(hs.fromUtf8Bytes(headerBytes).left.map(_ => {println("kekistan1"); defaultError}))
+        header        <- M.fromEither(hs.fromUtf8Bytes(headerBytes).left.map(_ => defaultError))
         bool          <- sigDSL.verifyBool(toSign, CryptoSignature[A](sigExtract), pubKey)
         body <- M.ensure(M.fromEither(JWTClaims.fromB64URL(split(1))))(defaultError)(
           claims => bool && claims.isAfterNBF(now) && claims.isNotExpired(now) && claims.isValidIssued(now)
