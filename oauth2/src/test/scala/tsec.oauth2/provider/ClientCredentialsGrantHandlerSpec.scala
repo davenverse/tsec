@@ -24,9 +24,9 @@ class ClientCredentialsGrantHandlerSpec extends flatspec.AnyFlatSpec with Option
                            ): IO[Option[MockUser]] = IO.pure(Some(MockUser(10000, "username")))
 
       override def createAccessToken(authInfo: AuthInfo[MockUser]): IO[AccessToken] =
-        IO.pure(AccessToken("token1", None, Some("all"), Some(3600 seconds), Instant.now()))
+        IO.pure(AccessToken("token1", None, Some("all"), Some(3600.seconds), Instant.now()))
       override def getStoredAccessToken(authInfo: AuthInfo[MockUser]): IO[Option[AccessToken]] = IO.pure(None)
-      override def refreshAccessToken(authInfo: AuthInfo[MockUser], refreshToken: String): IO[AccessToken] = IO.pure(AccessToken("", Some(""), Some(""), Some(0 seconds), Instant.now()))
+      override def refreshAccessToken(authInfo: AuthInfo[MockUser], refreshToken: String): IO[AccessToken] = IO.pure(AccessToken("", Some(""), Some(""), Some(0.seconds), Instant.now()))
     }
 
     val handler = new ClientCredentialsGrantHandler[IO, MockUser](dataHandler)

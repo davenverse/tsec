@@ -12,7 +12,6 @@ import tsec.keygen.symmetric.IdKeyGen
 import tsec.mac.jca._
 
 import scala.concurrent.duration._
-import cats.effect.unsafe.implicits.global
 
 class JWTAuthenticatorSpec extends RequestAuthenticatorSpec {
 
@@ -105,7 +104,7 @@ class JWTAuthenticatorSpec extends RequestAuthenticatorSpec {
     val authenticator: JWTAuthenticator[IO, Int, DummyUser, A] =
       tf(store, dummyStore, macKey)
 
-    new AuthSpecTester[AugmentedJWT[A, Int]](authenticator, dummyStore) {
+    new AuthSpecTester[AugmentedJWT[A, Int]](authenticator, dummyStore) { self =>
 
       def embedInRequest(request: Request[IO], authenticator: AugmentedJWT[A, Int]): Request[IO] =
         embedder(request, authenticator)
@@ -127,7 +126,7 @@ class JWTAuthenticatorSpec extends RequestAuthenticatorSpec {
       }
 
       def wrongKeyAuthenticator: IO[AugmentedJWT[A, Int]] =
-        tf(store, dummyStore, macKeyGen.generateKey).create(123)
+        tf(store, self.dummyStore, macKeyGen.generateKey).create(123)
     }
   }
 
@@ -142,7 +141,7 @@ class JWTAuthenticatorSpec extends RequestAuthenticatorSpec {
     val macKey        = macKeyGen.generateKey
     val authenticator = tf(dummyStore, macKey)
 
-    new AuthSpecTester[AugmentedJWT[A, Int]](authenticator, dummyStore) {
+    new AuthSpecTester[AugmentedJWT[A, Int]](authenticator, dummyStore) { self =>
 
       def embedInRequest(request: Request[IO], authenticator: AugmentedJWT[A, Int]): Request[IO] =
         embedder(request, authenticator)
@@ -164,7 +163,7 @@ class JWTAuthenticatorSpec extends RequestAuthenticatorSpec {
       }
 
       def wrongKeyAuthenticator: IO[AugmentedJWT[A, Int]] =
-        tf(dummyStore, macKey).create(123)
+        tf(self.dummyStore, macKey).create(123)
     }
   }
 

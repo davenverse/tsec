@@ -4,8 +4,6 @@ import java.time.Instant
 import java.util.UUID
 import cats.data.OptionT
 import cats.effect.IO
-import cats.syntax.either._
-import io.circe.generic.auto._
 import io.circe.parser.decode
 import org.http4s.headers.`Set-Cookie`
 import org.http4s.{Request, RequestCookie, Response}
@@ -14,7 +12,6 @@ import tsec.cookies.{AEADCookie, AEADCookieEncryptor}
 import tsec.keygen.symmetric.IdKeyGen
 
 import scala.concurrent.duration._
-import cats.effect.unsafe.implicits.global
 import tsec.cipher.symmetric.AADEncryptor
 import tsec.cipher.symmetric.IvGen
 
@@ -48,7 +45,7 @@ class EncryptedCookieAuthenticatorSpec extends RequestAuthenticatorSpec {
       dummyStore,
       cipherAPI.unsafeGenerateKey
     )
-    new AuthSpecTester[AuthEncryptedCookie[A, Int]](authenticator, dummyStore) {
+    new AuthSpecTester[AuthEncryptedCookie[A, Int]](authenticator, dummyStore) { self =>
 
       def embedInRequest(request: Request[IO], authenticator: AuthEncryptedCookie[A, Int]): Request[IO] = {
         val cookie = authenticator.toCookie
@@ -72,7 +69,7 @@ class EncryptedCookieAuthenticatorSpec extends RequestAuthenticatorSpec {
           .withBackingStore[IO, Int, DummyUser, A](
             settings,
             store,
-            dummyStore,
+            self.dummyStore,
             cipherAPI.unsafeGenerateKey
           )
           .create(123)
@@ -90,7 +87,7 @@ class EncryptedCookieAuthenticatorSpec extends RequestAuthenticatorSpec {
     val secretKey     = cipherAPI.unsafeGenerateKey
     val authenticator = EncryptedCookieAuthenticator.stateless[IO, Int, DummyUser, A](settings, dummyStore, secretKey)
 
-    new AuthSpecTester[AuthEncryptedCookie[A, Int]](authenticator, dummyStore) {
+    new AuthSpecTester[AuthEncryptedCookie[A, Int]](authenticator, dummyStore) { self =>
 
       def embedInRequest(request: Request[IO], authenticator: AuthEncryptedCookie[A, Int]): Request[IO] = {
         val cookie = authenticator.toCookie
@@ -132,7 +129,7 @@ class EncryptedCookieAuthenticatorSpec extends RequestAuthenticatorSpec {
 
       def wrongKeyAuthenticator: IO[AuthEncryptedCookie[A, Int]] =
         EncryptedCookieAuthenticator
-          .stateless[IO, Int, DummyUser, A](settings, dummyStore, cipherAPI.unsafeGenerateKey)
+          .stateless[IO, Int, DummyUser, A](settings, self.dummyStore, cipherAPI.unsafeGenerateKey)
           .create(123)
     }
   }
