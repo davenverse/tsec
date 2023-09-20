@@ -14,7 +14,7 @@ import cats.effect.unsafe.implicits.global
 class AccessTokenSpec extends flatspec.AnyFlatSpec {
 
   it should "say a token is active that is not yet expired" in {
-    val token = AccessToken("token", None, None, lifeTime = Some(15 seconds), createdAt = Instant.now())
+    val token = AccessToken("token", None, None, lifeTime = Some(15.seconds), createdAt = Instant.now())
     token.isExpired[IO].unsafeRunSync() shouldBe false
   }
 
@@ -23,7 +23,7 @@ class AccessTokenSpec extends flatspec.AnyFlatSpec {
       "token",
       None,
       None,
-      lifeTime = Some(1798 seconds),
+      lifeTime = Some(1798.seconds),
       createdAt = ZonedDateTime.now(ZoneOffset.UTC).minusSeconds(1800).toInstant
     )
     token.isExpired[IO].unsafeRunSync() shouldBe true
