@@ -28,11 +28,11 @@ final case class AccessToken(
 ) {
   def isExpired[F[_]](implicit F: Sync[F]): F[Boolean] = expiresIn.map(_.exists(_.toMillis < 0))
 
-  def expiresIn[F[_]](implicit F: Sync[F]): F[Option[FiniteDuration]] = lifeTime traverse { l =>
+  def expiresIn[F[_]](implicit F: Sync[F]): F[Option[FiniteDuration]] = lifeTime.traverse{ l =>
     val expTime = createdAt.toEpochMilli + l.toMillis
     for {
       now <- F.delay(System.currentTimeMillis)
-      t   <- F.pure(((expTime - now) / 1000) milli)
+      t   <- F.pure(((expTime - now) / 1000).milli)
     } yield t
   }
 }

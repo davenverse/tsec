@@ -33,7 +33,7 @@ class AuthorizationCodeGrantHandlerSpec extends flatspec.AnyFlatSpec with Option
         )
 
       override def createAccessToken(authInfo: AuthInfo[MockUser]): IO[AccessToken] =
-        IO.pure(AccessToken("token1", Some("refreshToken1"), Some("all"), Some(3600 seconds),Instant.now()))
+        IO.pure(AccessToken("token1", Some("refreshToken1"), Some("all"), Some(3600.seconds),Instant.now()))
 
       override def deleteAuthCode(code: String): IO[Unit] = {
         Thread.sleep(300)
@@ -42,7 +42,7 @@ class AuthorizationCodeGrantHandlerSpec extends flatspec.AnyFlatSpec with Option
       }
 
       override def getStoredAccessToken(authInfo: AuthInfo[MockUser]): IO[Option[AccessToken]] = IO.pure(None)
-      override def refreshAccessToken(authInfo: AuthInfo[MockUser], refreshToken: String): IO[AccessToken] = IO.pure(AccessToken("", Some(""), Some(""), Some(0 seconds), Instant.now()))
+      override def refreshAccessToken(authInfo: AuthInfo[MockUser], refreshToken: String): IO[AccessToken] = IO.pure(AccessToken("", Some(""), Some(""), Some(0.seconds), Instant.now()))
     }
     val handler = new AuthorizationCodeGrantHandler[IO, MockUser](dataHandler)
 
@@ -76,10 +76,10 @@ class AuthorizationCodeGrantHandlerSpec extends flatspec.AnyFlatSpec with Option
         )
 
       override def createAccessToken(authInfo: AuthInfo[MockUser]): IO[AccessToken] =
-        IO.pure(AccessToken("token1", Some("refreshToken1"), Some("all"), Some(3600 seconds), Instant.now()))
+        IO.pure(AccessToken("token1", Some("refreshToken1"), Some("all"), Some(3600.seconds), Instant.now()))
       override def deleteAuthCode(code: String): IO[Unit] = IO.pure(())
       override def getStoredAccessToken(authInfo: AuthInfo[MockUser]): IO[Option[AccessToken]] = IO.pure(None)
-      override def refreshAccessToken(authInfo: AuthInfo[MockUser], refreshToken: String): IO[AccessToken] = IO.pure(AccessToken("", Some(""), Some(""), Some(0 seconds), Instant.now()))
+      override def refreshAccessToken(authInfo: AuthInfo[MockUser], refreshToken: String): IO[AccessToken] = IO.pure(AccessToken("", Some(""), Some(""), Some(0.seconds), Instant.now()))
     }
     val handler = new AuthorizationCodeGrantHandler[IO, MockUser](dataHandler)
     val f = handler.handleRequest(
@@ -111,12 +111,12 @@ class AuthorizationCodeGrantHandlerSpec extends flatspec.AnyFlatSpec with Option
         )
 
       override def createAccessToken(authInfo: AuthInfo[MockUser]): IO[AccessToken] =
-        IO.pure(AccessToken("token1", Some("refreshToken1"), Some("all"), Some(3600 seconds), Instant.now()))
+        IO.pure(AccessToken("token1", Some("refreshToken1"), Some("all"), Some(3600.seconds), Instant.now()))
 
       override def deleteAuthCode(code: String): IO[Unit] =
         IO.raiseError(new Exception("fail"))
       override def getStoredAccessToken(authInfo: AuthInfo[MockUser]): IO[Option[AccessToken]] = IO.pure(None)
-      override def refreshAccessToken(authInfo: AuthInfo[MockUser], refreshToken: String): IO[AccessToken] = IO.pure(AccessToken("", Some(""), Some(""), Some(0 seconds), Instant.now()))
+      override def refreshAccessToken(authInfo: AuthInfo[MockUser], refreshToken: String): IO[AccessToken] = IO.pure(AccessToken("", Some(""), Some(""), Some(0.seconds), Instant.now()))
     }
     val handler = new AuthorizationCodeGrantHandler[IO, MockUser](dataHandler)
     val f = handler.handleRequest(
