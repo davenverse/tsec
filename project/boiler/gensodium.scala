@@ -1,3 +1,4 @@
+/*
 package tsec.build
 
 import scala.collection.JavaConverters._
@@ -108,3 +109,4 @@ object GenSodium extends App {
   new FileOutputStream(new File("tsec-libsodium/src/main/scala/tsec/jni/ScalaSodium0.scala"))
     .write(src.getBytes(StandardCharsets.UTF_8))
 }
+*/

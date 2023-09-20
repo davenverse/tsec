@@ -12,7 +12,7 @@ class ProtectedResourceSpec extends flatspec.AnyFlatSpec {
   val pureProtectedResourceHandler = new ProtectedResourceHandler[IO, MockUser] {
 
     override def findAccessToken(token: String): IO[Option[AccessToken]] =
-      IO.pure(Some(AccessToken("token1", Some("refreshToken1"), Some("all"), Some(3600 seconds), Instant.now())))
+      IO.pure(Some(AccessToken("token1", Some("refreshToken1"), Some("all"), Some(3600.seconds), Instant.now())))
 
     override def findAuthInfoByAccessToken(accessToken: AccessToken): IO[Option[AuthInfo[MockUser]]] =
       IO.pure(
@@ -63,7 +63,7 @@ class ProtectedResourceSpec extends flatspec.AnyFlatSpec {
               "token1",
               Some("refreshToken1"),
               Some("all"),
-              Some(3600 seconds),
+              Some(3600.seconds),
               Instant.ofEpochMilli(System.currentTimeMillis() - 4000 * 1000)
             )
           )
@@ -127,7 +127,7 @@ class ProtectedResourceSpec extends flatspec.AnyFlatSpec {
     val dataHandler = new ProtectedResourceHandler[IO, MockUser] {
 
       override def findAccessToken(token: String): IO[Option[AccessToken]] =
-        IO.pure(Some(AccessToken("token1", Some("refreshToken1"), Some("all"), Some(3600 seconds), Instant.now())))
+        IO.pure(Some(AccessToken("token1", Some("refreshToken1"), Some("all"), Some(3600.seconds), Instant.now())))
 
       override def findAuthInfoByAccessToken(accessToken: AccessToken): IO[Option[AuthInfo[MockUser]]] = IO.pure(None)
 

@@ -151,12 +151,12 @@ authorization model. we have two things that concern us, reading, and writing, t
 ```scala
 sealed abstract case class BLPReadAction[F[_], Role, A, Auth](authLevel: Role)(
     implicit authInfo: AuthorizationInfo[F, Role, A],
-    enum: SimpleAuthEnum[Role, Int],
+    `enum`: SimpleAuthEnum[Role, Int],
     F: MonadError[F, Throwable]
 )
 sealed abstract case class BLPWriteAction[F[_], Role, A, Auth](authLevel: Role)(
     implicit authInfo: AuthorizationInfo[F, Role, A],
-    enum: SimpleAuthEnum[Role, Int],
+    `enum`: SimpleAuthEnum[Role, Int],
     F: MonadError[F, Throwable]
 ) 
 ```

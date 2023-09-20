@@ -23,9 +23,9 @@ class TokenEndPointSpec extends AnyFlatSpec {
     ): IO[Option[MockUser]] = IO.pure(Some(MockUser(10000, "username")))
 
     override def createAccessToken(authInfo: AuthInfo[MockUser]): IO[AccessToken] =
-      IO.pure(AccessToken("token1", None, Some("all"), Some(3600 seconds), Instant.now()))
+      IO.pure(AccessToken("token1", None, Some("all"), Some(3600.seconds), Instant.now()))
     override def getStoredAccessToken(authInfo: AuthInfo[MockUser]): IO[Option[AccessToken]] = IO.pure(None)
-    override def refreshAccessToken(authInfo: AuthInfo[MockUser], refreshToken: String): IO[AccessToken] = IO.pure(AccessToken("", Some(""), Some(""), Some(0 seconds), Instant.now()))
+    override def refreshAccessToken(authInfo: AuthInfo[MockUser], refreshToken: String): IO[AccessToken] = IO.pure(AccessToken("", Some(""), Some(""), Some(0.seconds), Instant.now()))
   }
   val te = new TokenEndpoint[IO, MockUser](DataHandlers(Some(dataHandler), None, None, None, None, None))
 
@@ -60,9 +60,9 @@ class TokenEndPointSpec extends AnyFlatSpec {
     val params                  = Map("grant_type" -> Seq("password"), "username" -> Seq("user"), "password" -> Seq("pass"), "scope" -> Seq("all"))
     val dataHandler = new PasswordNoClientCredHandler[IO, MockUser]{
       override def createAccessToken(authInfo: AuthInfo[MockUser]): IO[AccessToken] =
-        IO.pure(AccessToken("token1", None, Some("all"), Some(3600 seconds), Instant.now()))
+        IO.pure(AccessToken("token1", None, Some("all"), Some(3600.seconds), Instant.now()))
       override def getStoredAccessToken(authInfo: AuthInfo[MockUser]): IO[Option[AccessToken]] = IO.pure(None)
-      override def refreshAccessToken(authInfo: AuthInfo[MockUser], refreshToken: String): IO[AccessToken] = IO.pure(AccessToken("", Some(""), Some(""), Some(0 seconds), Instant.now()))
+      override def refreshAccessToken(authInfo: AuthInfo[MockUser], refreshToken: String): IO[AccessToken] = IO.pure(AccessToken("", Some(""), Some(""), Some(0.seconds), Instant.now()))
       override def findUser(maybeCredential: Option[ClientCredential], request: ValidatedRequest.ValidatedPasswordNoClientCred): IO[Option[MockUser]] = IO.pure(Some(MockUser(10000, "username")))
     }
     val t = TokenEndpoint(DataHandlers(None, Some(dataHandler), None, None, None, None))
@@ -83,7 +83,7 @@ class TokenEndPointSpec extends AnyFlatSpec {
 
       override def createAccessToken(authInfo: AuthInfo[MockUser]): IO[AccessToken] = ???
       override def getStoredAccessToken(authInfo: AuthInfo[MockUser]): IO[Option[AccessToken]] = IO.pure(None)
-      override def refreshAccessToken(authInfo: AuthInfo[MockUser], refreshToken: String): IO[AccessToken] = IO.pure(AccessToken("", Some(""), Some(""), Some(0 seconds), Instant.now()))
+      override def refreshAccessToken(authInfo: AuthInfo[MockUser], refreshToken: String): IO[AccessToken] = IO.pure(AccessToken("", Some(""), Some(""), Some(0.seconds), Instant.now()))
     }
     val te = TokenEndpoint(DataHandlers(Some(dataHandler), None, None, None, None, None))
     val f = te.authorize(headers, params).value.unsafeRunSync()
@@ -102,7 +102,7 @@ class TokenEndPointSpec extends AnyFlatSpec {
 
       override def createAccessToken(authInfo: AuthInfo[MockUser]): IO[AccessToken] = throw new Exception("Failure")
       override def getStoredAccessToken(authInfo: AuthInfo[MockUser]): IO[Option[AccessToken]] = IO.pure(None)
-      override def refreshAccessToken(authInfo: AuthInfo[MockUser], refreshToken: String): IO[AccessToken] = IO.pure(AccessToken("", Some(""), Some(""), Some(0 seconds), Instant.now()))
+      override def refreshAccessToken(authInfo: AuthInfo[MockUser], refreshToken: String): IO[AccessToken] = IO.pure(AccessToken("", Some(""), Some(""), Some(0.seconds), Instant.now()))
     }
     val te = TokenEndpoint(DataHandlers(Some(dataHandler), None, None, None, None, None))
     val headers                  = Map("Authorization" -> Seq("Basic Y2xpZW50X2lkX3ZhbHVlOmNsaWVudF9zZWNyZXRfdmFsdWU="))
