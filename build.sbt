@@ -22,110 +22,7 @@ ThisBuild / tlCiReleaseBranches := Seq("main")
 // true by default, set to false to publish to s01.oss.sonatype.org
 ThisBuild / tlSonatypeUseLegacyHost := true
 
-// lazy val releaseSettings = {
-//   import ReleaseTransformations._
-//   Seq(
-//     releaseCrossBuild := true,
-//     releaseProcess := Seq[ReleaseStep](
-//       checkSnapshotDependencies,
-//       inquireVersions,
-//       runClean,
-//       runTest,
-//       setReleaseVersion,
-//       commitReleaseVersion,
-//       tagRelease,
-//       // For non cross-build projects, use releaseStepCommand("publishSigned")
-//       releaseStepCommandAndRemaining("+publishSigned"),
-//       setNextVersion,
-//       commitNextVersion,
-//       releaseStepCommand("sonatypeReleaseAll"),
-//       pushChanges
-//     ),
-//     publishTo := {
-//       val nexus = "https://oss.sonatype.org/"
-//       if (isSnapshot.value)
-//         Some("snapshots" at nexus + "content/repositories/snapshots")
-//       else
-//         Some("releases" at nexus + "service/local/staging/deploy/maven2")
-//     },
-//     credentials ++= (
-//       for {
-//         username <- Option(System.getenv().get("SONATYPE_USERNAME"))
-//         password <- Option(System.getenv().get("SONATYPE_PASSWORD"))
-//       } yield
-//         Credentials(
-//           "Sonatype Nexus Repository Manager",
-//           "oss.sonatype.org",
-//           username,
-//           password
-//         )
-//     ).toSeq,
-//     Test / publishArtifact := false,
-//     releasePublishArtifactsAction := PgpKeys.publishSigned.value,
-//     scmInfo := Some(
-//       ScmInfo(
-//         url("https://github.com/jmcardon/tsec"),
-//         "git@github.com:jmcardon/tsec.git"
-//       )
-//     ),
-//     homepage := Some(url("https://github.com/jmcardon/tsec")),
-//     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
-//     publishMavenStyle := true,
-//     pomIncludeRepository := { _ =>
-//       false
-//     },
-//     pomExtra := {
-//       <developers>
-//         {for ((username, name) <- contributors) yield
-//         <developer>
-//           <id>{username}</id>
-//           <name>{name}</name>
-//           <url>http://github.com/{username}</url>
-//         </developer>
-//         }
-//       </developers>
-//     }
-//   )
-// }
-
-// lazy val micrositeSettings = Seq(
-//   micrositeName := "TSec",
-//   micrositeBaseUrl := "/tsec",
-//   micrositeDescription := "A Type-Safe General Cryptography Library on the JVM",
-//   micrositeAuthor := "Jose Cardona",
-//   micrositeHomepage := "https://jmcardon.github.io/tsec/",
-//   micrositeGithubOwner := "jmcardon",
-//   micrositeGithubRepo := "tsec",
-//   micrositeDocumentationUrl := "/tsec/docs/symmetric.html",
-//   micrositeGitterChannel := false,
-//   micrositeGithubToken := sys.env.get("GITHUB_TOKEN")
-// )
-
-// def scalacOptionsForVersion(scalaVersion: String): Seq[String] = {
-//   val defaultOpts = Seq(
-//     "-unchecked",
-//     "-feature",
-//     "-deprecation",
-//     "-encoding",
-//     "utf8",
-//     "-language:higherKinds",
-//     "-language:implicitConversions",
-//     "-language:postfixOps"
-//   )
-//   val versionOpts: Seq[String] = CrossVersion.partialVersion(scalaVersion) match {
-//     case Some((3, _)) => Seq(
-//       "-Ykind-projector",
-//     )
-//     case Some((2, major)) if major < 13 => Seq(
-//       "-Ywarn-adapted-args",
-//       "-Ywarn-inaccessible",
-//       "-Ywarn-nullary-override",
-//       "-Ypartial-unification",
-//     )
-//     case _ => Seq()
-//   }
-//   defaultOpts ++ versionOpts
-// }
+ThisBuild / tlCiScalafmtCheck := true
 
 lazy val commonSettings = Seq(
   libraryDependencies ++= Seq(
@@ -141,26 +38,6 @@ lazy val commonSettings = Seq(
   run / fork := true,
 
   Test / parallelExecution := false,
-
-  // libraryDependencies ++= {
-  //   if (isDotty(scalaVersion.value)) Seq.empty
-  //   else Seq(
-  //     compilerPlugin("org.typelevel" % "kind-projector" % "0.13.0" cross CrossVersion.full),
-  //     compilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1"),
-  //   )
-  // },
-  // scalacOptions ++= {
-  //   if (isDotty(scalaVersion.value)) Seq("-source:3.0-migration")
-  //   else Seq()
-  // },
-  // Compile / doc / sources := {
-  //   val old = (Compile / doc / sources).value
-  //   if (isDotty(scalaVersion.value))
-  //     Seq()
-  //   else
-  //     old
-  // },
-  // scalacOptions ++= scalacOptionsForVersion(scalaVersion.value)
 )
 
 lazy val passwordHasherLibs = libraryDependencies ++= Seq(
@@ -362,23 +239,3 @@ lazy val microsite = Project(id = "microsite", base = file("docs"))
     examples
   )
 */
-
-// lazy val publishSettings = Seq(
-//   // homepage := Some(url("https://github.com/jmcardon/tsec")),
-
-//   scmInfo := Some(ScmInfo(url("https://github.com/jmcardon/tsec"), "scm:git:git@github.com:jmcardon/tsec.git")),
-// )
-
-// lazy val noPublishSettings = {
-//   Seq(
-//     publish / skip := true,
-//     publish := (()),
-//     publishLocal := (()),
-//     publishArtifact := false,
-//     publishTo := None
-//   )
-// }
-
-// def isDotty(string: String): Boolean = {
-//   VersionNumber(string)._1.exists(_ == 3L)
-// }
