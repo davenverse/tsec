@@ -22,8 +22,6 @@ ThisBuild / tlCiReleaseBranches := Seq("main")
 // true by default, set to false to publish to s01.oss.sonatype.org
 ThisBuild / tlSonatypeUseLegacyHost := true
 
-ThisBuild / tlCiScalafmtCheck := true
-
 lazy val commonSettings = Seq(
   libraryDependencies ++= Seq(
     Libraries.cats,
