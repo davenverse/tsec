@@ -11,8 +11,8 @@ addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.27")
 
 
 libraryDependencies ++= List(
-  "com.geirsson" %% "scalafmt-core" % "1.3.0",
-  "com.geirsson" %% "scalafmt-cli"  % "1.3.0"
+  "com.geirsson" %% "scalafmt-core" % "1.5.1",
+  "com.geirsson" %% "scalafmt-cli"  % "1.5.1"
 )
 
 Compile / unmanagedJars ++= tsec.build.SunShine.`tools.jar`.toSeq
