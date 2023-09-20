@@ -221,7 +221,7 @@ object SignedCookieAuthenticator {
   )(implicit F: Sync[F], S: MessageAuth[F, Alg, MacSigningKey]): SignedCookieAuthenticator[F, I, V, Alg] =
     settings.maxIdle match {
       case Some(mIdle) =>
-        new SignedCookieAuthenticator[F, I, V, Alg](tokenStore, idStore, settings) {
+        new SignedCookieAuthenticator[F, I, V, Alg](tokenStore, idStore, settings) { self =>
 
           private[tsec] def validateCookie(
               internal: AuthenticatedCookie[Alg, I],
@@ -236,9 +236,9 @@ object SignedCookieAuthenticator {
             CookieSigner.sign[F, Alg](message, nonce, key)
 
           def refresh(authenticator: AuthenticatedCookie[Alg, I]): F[AuthenticatedCookie[Alg, I]] =
-            F.delay(Instant.now()).flatMap { now =>
+            F.delay(Instant.now()).flatMap { (now ) =>
               val updated = authenticator.copy[Alg, I](lastTouched = Some(now))
-              tokenStore.update(updated).map(_ => updated)
+              self.tokenStore.update(updated).map(_ => updated)
             }
         }
 

@@ -24,7 +24,7 @@ class ImplicitSpec extends flatspec.AnyFlatSpec with ScalaFutures with OptionVal
       override def validateClient(request: ValidatedImplicit): IO[Boolean] = IO.pure(true)
 
       override def createAccessToken(authInfo: AuthInfo[MockUser]): IO[AccessToken] =
-        IO.pure(AccessToken("token1", Some("refresh_token"), Some("all"), Some(3600 seconds), Instant.now()))
+        IO.pure(AccessToken("token1", Some("refresh_token"), Some("all"), Some(3600.seconds), Instant.now()))
 
       override def findUser(request: ValidatedImplicit): IO[Option[MockUser]] = if(ok) IO.pure(Some(MockUser(10000, "username"))) else IO.pure(None)
 
