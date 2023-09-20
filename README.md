@@ -8,17 +8,12 @@ ________________________________________
 ```
 # [TSEC: A type-safe, functional, general purpose security and cryptography library.](https://jmcardon.github.io/tsec/)
 
-[![Join the chat at https://gitter.im/tsecc/Lobby](https://badges.gitter.im/tsecc/Lobby.svg)](https://gitter.im/tsecc/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/jmcardon/tsec.svg?branch=master)](https://travis-ci.org/jmcardon/tsec)
 [ ![Latest Version](https://maven-badges.herokuapp.com/maven-central/io.github.jmcardon/tsec-common_2.12/badge.svg)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A"io.github.jmcardon"%20tsec)
 
 
-### Latest Release: 0.0.1-M11
+### Latest Release: 0.5.0
 
-For the current progress, please refer to the [RoadMap](https://github.com/jmcardon/tsec/wiki)
-
-For version changes and additions, including breaking changes, see either [release notes](https://github.com/jmcardon/tsec/releases)
-or the [Version Changes](https://github.com/jmcardon/tsec/wiki/Version-Changes) page.
+This software is in the process of finding its way out of your builds. This is maintained only for compatibility and security fixes. We hope you will work with others to find solutions to this space for the Scala community.
 
 ## Note about using Windows￼™® with tsec
 
