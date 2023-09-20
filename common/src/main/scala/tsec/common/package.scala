@@ -5,7 +5,6 @@ import java.nio.charset.StandardCharsets
 import java.util.Base64
 
 import cats.effect.Sync
-import cats.evidence.Is
 import org.apache.commons.codec.binary.{Hex, Base64 => AB64}
 
 import scala.util.control.NoStackTrace

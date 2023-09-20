@@ -5,7 +5,7 @@ ThisBuild / tlBaseVersion := "0.5"
 ThisBuild / organization := "io.github.jmcardon"
 
 // scalaVersion := crossScalaVersions.value.last,
-ThisBuild / crossScalaVersions := Seq("2.12.17", "2.13.10", "3.3.0")
+ThisBuild / crossScalaVersions := Seq("2.12.18", "2.13.12", "3.3.0")
 
 ThisBuild / licenses := Seq(License.MIT)
 
