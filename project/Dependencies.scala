@@ -5,7 +5,7 @@ object Dependencies {
   object Versions {
     val circeV        = "0.14.6"   //https://github.com/circe/circe/releases
     val catsV         = "2.10.0"        //https://github.com/typelevel/cats/releases
-    val bouncyCastleV = "1.76"         //https://github.com/bcgit/bc-java/releases
+    val bouncyCastleV = "1.78.1"         //https://github.com/bcgit/bc-java/releases
     val sCryptV       = "1.4.0"        //https://github.com/wg/scrypt/releases
     val scalaTestV    = "3.2.9"      //https://github.com/scalatest/scalatest/releases
     val scalaTestPlusV= "3.2.9.0"  //https://github.com/scalatest/scalatestplus-scalacheck
