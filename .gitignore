@@ -12,3 +12,4 @@ tsec-libsodium/jni/*.dylib
 metals.sbt
 .vscode/
 .bsp/
+.direnv/
