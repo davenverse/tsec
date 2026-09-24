@@ -5,7 +5,7 @@ ThisBuild / tlBaseVersion := "0.5"
 ThisBuild / organization := "io.github.jmcardon"
 
 // scalaVersion := crossScalaVersions.value.last,
-ThisBuild / crossScalaVersions := Seq("2.12.18", "2.13.12", "3.3.0")
+ThisBuild / crossScalaVersions := Seq("2.12.18", "2.13.18", "3.3.0")
 
 ThisBuild / licenses := Seq(License.MIT)
 
@@ -19,8 +19,6 @@ ThisBuild / developers := List(
 
 ThisBuild / tlCiReleaseBranches := Seq("main")
 
-// true by default, set to false to publish to s01.oss.sonatype.org
-ThisBuild / tlSonatypeUseLegacyHost := true
 
 lazy val commonSettings = Seq(
   libraryDependencies ++= Seq(
