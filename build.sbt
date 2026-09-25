@@ -17,7 +17,7 @@ ThisBuild / developers := List(
   tlGitHubDev("ChristopherDavenport", "Christopher Davenport")
 )
 
-ThisBuild / tlCiReleaseBranches := Seq("main")
+ThisBuild / tlCiReleaseBranches := Seq()
 
 
 lazy val commonSettings = Seq(
