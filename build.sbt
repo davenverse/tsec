@@ -1,6 +1,6 @@
 import Dependencies._
 
-ThisBuild / tlBaseVersion := "0.5"
+ThisBuild / tlBaseVersion := "0.6"
 
 ThisBuild / organization := "io.github.jmcardon"
 
